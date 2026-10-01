@@ -148,8 +148,9 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" id="telefono" required placeholder="Tu número de teléfono">
+                    <label for="telefono">Teléfono (10 dígitos):</label>
+                    <!-- Campo de teléfono optimizado con inputmode, pattern y maxlength -->
+                    <input type="tel" id="telefono" inputmode="numeric" pattern="[0-9]*" maxlength="10" required placeholder="Ej. 2221234567">
                 </div>
 
                 <div class="input-group">
@@ -182,20 +183,33 @@
         let respuestaCorrecta = num1 + num2;
         document.getElementById('captchaQuestion').innerText = `¿Cuánto es ${num1} + ${num2}?`;
 
+        // Filtrar en tiempo real el campo de teléfono para que sólo admita números
+        const inputTelefono = document.getElementById('telefono');
+        inputTelefono.addEventListener('input', function(e) {
+            // Reemplaza cualquier carácter que no sea un número con una cadena vacía
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
         function enviarWhatsApp(event) {
             event.preventDefault();
 
             // Validar la respuesta del CAPTCHA
             const respuestaUsuario = parseInt(document.getElementById('captchaInput').value);
             if (respuestaUsuario !== respuestaCorrecta) {
-                alert(" El resultado del CAPTCHA es incorrecto. Inténtalo de nuevo.");
+                alert("El resultado del CAPTCHA es incorrecto. Inténtalo de nuevo.");
                 return;
             }
 
             // Obtener los datos escritos por el usuario
             const nombre = document.getElementById('nombre').value;
-            const telefono = document.getElementById('telefono').value;
+            const telefono = inputTelefono.value;
             const comentario = document.getElementById('comentario').value;
+
+            // Validar que el teléfono tenga al menos 10 dígitos (o los requeridos)
+            if (telefono.length < 10) {
+                alert("Por favor, ingresa un número de teléfono válido de 10 dígitos.");
+                return;
+            }
 
             /// Número de WhatsApp configurado
             const tuNumeroWhatsApp = "522204701761"; 
