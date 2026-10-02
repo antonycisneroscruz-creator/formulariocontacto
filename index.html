@@ -138,7 +138,6 @@
 <body>
 
     <div class="container">
-        <!-- Sección del Formulario -->
         <div class="form-section">
             <h2>Contáctanos</h2>
             <form id="contactForm" onsubmit="enviarWhatsApp(event)">
@@ -149,7 +148,6 @@
 
                 <div class="input-group">
                     <label for="telefono">Teléfono (10 dígitos):</label>
-                    <!-- Campo de teléfono optimizado con inputmode, pattern y maxlength -->
                     <input type="tel" id="telefono" inputmode="numeric" pattern="[0-9]*" maxlength="10" required placeholder="Ej. 2221234567">
                 </div>
 
@@ -158,72 +156,72 @@
                     <textarea id="comentario" rows="3" required placeholder="Escribe tu mensaje..."></textarea>
                 </div>
 
-                <!-- CAPTCHA Matemático Simple -->
                 <div class="captcha-box">
                     <label for="captchaInput" id="captchaQuestion">Cargando...</label>
                     <input type="number" id="captchaInput" required placeholder="Escribe el resultado">
                 </div>
 
                 <button type="submit" class="btn-whatsapp">
-                     Enviar por WhatsApp
+                    Enviar por WhatsApp
                 </button>
             </form>
         </div>
 
         <div class="map-section">
-            <!-- Mapa incrustado de Google Maps -->
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3775.6!2d-98.46!3d18.59!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM1JzM2LjAiTiA5OMKwMjcnMzYuMCJX!5e0!3m2!1ses!2smx!4v1620000000000!5m2!1ses!2smx" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
 
     <script>
-        // Generar un CAPTCHA matemático aleatorio cada vez que se carga la página
         let num1 = Math.floor(Math.random() * 10) + 1;
         let num2 = Math.floor(Math.random() * 10) + 1;
         let respuestaCorrecta = num1 + num2;
         document.getElementById('captchaQuestion').innerText = `¿Cuánto es ${num1} + ${num2}?`;
 
-        // Filtrar en tiempo real el campo de teléfono para que sólo admita números
         const inputTelefono = document.getElementById('telefono');
-        inputTelefono.addEventListener('input', function(e) {
-            // Reemplaza cualquier carácter que no sea un número con una cadena vacía
+        inputTelefono.addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
         function enviarWhatsApp(event) {
             event.preventDefault();
 
-            // Validar la respuesta del CAPTCHA
             const respuestaUsuario = parseInt(document.getElementById('captchaInput').value);
             if (respuestaUsuario !== respuestaCorrecta) {
-                alert("El resultado del CAPTCHA es incorrecto. Inténtalo de nuevo.");
+                alert("El resultado del CAPTCHA es incorrecto.");
                 return;
             }
 
-            // Obtener los datos escritos por el usuario
             const nombre = document.getElementById('nombre').value;
             const telefono = inputTelefono.value;
             const comentario = document.getElementById('comentario').value;
 
-            // Validar que el teléfono tenga al menos 10 dígitos (o los requeridos)
             if (telefono.length < 10) {
-                alert("Por favor, ingresa un número de teléfono válido de 10 dígitos.");
+                alert("Número inválido.");
                 return;
             }
 
-            /// Número de WhatsApp configurado
-            const tuNumeroWhatsApp = "522204701761"; 
-
-            // Estructurar el mensaje
+            const tuNumeroWhatsApp = "522204701761";
             const mensaje = "Hola, mi nombre es " + nombre + ". Mi teléfono es: " + telefono + ". Comentario: " + comentario;
-
-            // URL directa y segura con concatenación clásica para evitar errores de sintaxis en plantillas de texto
             const urlWhatsApp = "https://wa.me/" + tuNumeroWhatsApp + "?text=" + encodeURIComponent(mensaje);
 
-            // Abrir la ventana de WhatsApp
             window.open(urlWhatsApp, '_blank');
         }
     </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6abea347fcc044344bfb6f5d/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
 
 </body>
 </html>
