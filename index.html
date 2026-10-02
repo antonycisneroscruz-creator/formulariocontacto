@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Contacto</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -40,16 +41,13 @@
 
         .form-section {
             padding: 30px;
-            background: #ffffff;
         }
 
         .form-section h2 {
-            color: #333333 !important;
+            color: #333;
             margin-bottom: 20px;
-            font-size: 24px;
             border-bottom: 3px solid #667eea;
             display: inline-block;
-            padding-bottom: 5px;
         }
 
         .input-group {
@@ -59,24 +57,15 @@
         .input-group label {
             display: block;
             margin-bottom: 5px;
-            color: #222222 !important;
             font-weight: bold;
-            font-size: 14px;
         }
 
-        .input-group input, .input-group textarea {
+        .input-group input, 
+        .input-group textarea {
             width: 100%;
-            padding: 10px 12px;
-            border: 2px solid #cccccc;
-            background-color: #ffffff !important;
-            color: #000000 !important;
+            padding: 10px;
+            border: 2px solid #ccc;
             border-radius: 8px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .input-group input:focus, .input-group textarea:focus {
-            border-color: #667eea;
         }
 
         .captcha-box {
@@ -84,48 +73,17 @@
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 18px;
-            border: 1px dashed #667eea;
-        }
-
-        .captcha-box label {
-            color: #111111 !important;
-            font-weight: bold;
-            margin-bottom: 6px;
-            display: block;
-            font-size: 14px;
-        }
-
-        .captcha-box input {
-            background-color: #ffffff !important;
-            color: #000000 !important;
         }
 
         .btn-whatsapp {
             background-color: #25d366;
-            color: white !important;
+            color: white;
             border: none;
             width: 100%;
             padding: 12px;
             border-radius: 8px;
-            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
-            transition: background 0.3s;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: #1ebe5d;
-        }
-
-        .map-section {
-            background: #e9ecef;
-            position: relative;
-            min-height: 350px;
         }
 
         .map-section iframe {
@@ -135,93 +93,106 @@
         }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="form-section">
-            <h2>Contáctanos</h2>
-            <form id="contactForm" onsubmit="enviarWhatsApp(event)">
-                <div class="input-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" required placeholder="Tu nombre completo">
-                </div>
+<div class="container">
 
-                <div class="input-group">
-                    <label for="telefono">Teléfono (10 dígitos):</label>
-                    <input type="tel" id="telefono" inputmode="numeric" pattern="[0-9]*" maxlength="10" required placeholder="Ej. 2221234567">
-                </div>
+    <div class="form-section">
+        <h2>Contáctanos</h2>
 
-                <div class="input-group">
-                    <label for="comentario">Comentario:</label>
-                    <textarea id="comentario" rows="3" required placeholder="Escribe tu mensaje..."></textarea>
-                </div>
+        <form onsubmit="enviarWhatsApp(event)">
 
-                <div class="captcha-box">
-                    <label for="captchaInput" id="captchaQuestion">Cargando...</label>
-                    <input type="number" id="captchaInput" required placeholder="Escribe el resultado">
-                </div>
+            <div class="input-group">
+                <label>Nombre:</label>
+                <input type="text" id="nombre" required>
+            </div>
 
-                <button type="submit" class="btn-whatsapp">
-                    Enviar por WhatsApp
-                </button>
-            </form>
-        </div>
+            <div class="input-group">
+                <label>Teléfono:</label>
+                <input type="tel" id="telefono" maxlength="10" required>
+            </div>
 
-        <div class="map-section">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3775.6!2d-98.46!3d18.59!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM1JzM2LjAiTiA5OMKwMjcnMzYuMCJX!5e0!3m2!1ses!2smx!4v1620000000000!5m2!1ses!2smx" allowfullscreen="" loading="lazy"></iframe>
-        </div>
+            <div class="input-group">
+                <label>Comentario:</label>
+                <textarea id="comentario" required></textarea>
+            </div>
+
+            <div class="captcha-box">
+                <label id="captchaQuestion"></label>
+                <input type="number" id="captchaInput" required>
+            </div>
+
+            <button type="submit" class="btn-whatsapp">
+                Enviar por WhatsApp
+            </button>
+
+        </form>
     </div>
 
-    <script>
-        let num1 = Math.floor(Math.random() * 10) + 1;
-        let num2 = Math.floor(Math.random() * 10) + 1;
-        let respuestaCorrecta = num1 + num2;
-        document.getElementById('captchaQuestion').innerText = `¿Cuánto es ${num1} + ${num2}?`;
+    <div class="map-section">
+        <iframe src="https://www.google.com/maps/embed?..."></iframe>
+    </div>
 
-        const inputTelefono = document.getElementById('telefono');
-        inputTelefono.addEventListener('input', function() {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
+</div>
 
-        function enviarWhatsApp(event) {
-            event.preventDefault();
+<script>
+let num1 = Math.floor(Math.random() * 10) + 1;
+let num2 = Math.floor(Math.random() * 10) + 1;
+let respuestaCorrecta = num1 + num2;
 
-            const respuestaUsuario = parseInt(document.getElementById('captchaInput').value);
-            if (respuestaUsuario !== respuestaCorrecta) {
-                alert("El resultado del CAPTCHA es incorrecto.");
-                return;
-            }
+document.getElementById('captchaQuestion').innerText =
+    "¿Cuánto es " + num1 + " + " + num2 + "?";
 
-            const nombre = document.getElementById('nombre').value;
-            const telefono = inputTelefono.value;
-            const comentario = document.getElementById('comentario').value;
+const inputTelefono = document.getElementById('telefono');
 
-            if (telefono.length < 10) {
-                alert("Número inválido.");
-                return;
-            }
+inputTelefono.addEventListener('input', function() {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
 
-            const tuNumeroWhatsApp = "522204701761";
-            const mensaje = "Hola, mi nombre es " + nombre + ". Mi teléfono es: " + telefono + ". Comentario: " + comentario;
-            const urlWhatsApp = "https://wa.me/" + tuNumeroWhatsApp + "?text=" + encodeURIComponent(mensaje);
+function enviarWhatsApp(e) {
+    e.preventDefault();
 
-            window.open(urlWhatsApp, '_blank');
-        }
-    </script>
+    const respuesta = parseInt(document.getElementById('captchaInput').value);
+    if (respuesta !== respuestaCorrecta) {
+        alert("CAPTCHA incorrecto");
+        return;
+    }
 
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/6abea347fcc044344bfb6f5d/default';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
-    <!--End of Tawk.to Script-->
+    const nombre = document.getElementById('nombre').value;
+    const telefono = inputTelefono.value;
+    const comentario = document.getElementById('comentario').value;
+
+    if (telefono.length < 10) {
+        alert("Número inválido");
+        return;
+    }
+
+    const numero = "522204701761";
+
+    const mensaje = "Hola, soy " + nombre +
+        ". Tel: " + telefono +
+        ". Comentario: " + comentario;
+
+    const url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
+
+    window.open(url, "_blank");
+}
+</script>
+
+<!-- Tawk.to -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),
+s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6abea347fcc044344bfb6f5d/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
 
 </body>
 </html>
